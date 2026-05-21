@@ -10,20 +10,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat '"%PYTHON%" -m venv venv'
-                bat 'venv\\Scripts\\pip install -r requirements.txt'
+                sh '"%PYTHON%" -m venv venv'
+                sh 'venv\\Scripts\\pip install -r requirements.txt'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'venv\\Scripts\\pytest'
+                sh 'venv\\Scripts\\pytest'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'start /B venv\\Scripts\\python app.py'
+                sh 'start /B venv\\Scripts\\python app.py'
             }
         }
     }
