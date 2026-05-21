@@ -27,9 +27,9 @@ pipeline {
     steps {
         sh '''
             . venv/bin/activate
-            fuser -k 5000/tcp || true
+            pkill -f "python3 app.py" || true
             nohup python3 app.py > /var/jenkins_home/flask.log 2>&1 &
-            sleep 2
+            sleep 3
             curl http://localhost:5000
         '''
     }
