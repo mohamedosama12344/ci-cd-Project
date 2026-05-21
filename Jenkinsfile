@@ -28,7 +28,7 @@ pipeline {
                 sh '''
                     . venv/bin/activate
                     pkill -f "python3 app.py" || true
-                    nohup python3 app.py > /var/jenkins_home/flask.log 2>&1 &
+                    JENKINS_NODE_COOKIE=dontKillMe nohup python3 app.py > /var/jenkins_home/flask.log 2>&1 &
                     sleep 3
                     curl http://localhost:5000
                 '''
