@@ -24,12 +24,15 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-                    nohup python3 app.py &
-                '''
-            }
-        }
+    steps {
+        sh '''
+            . venv/bin/activate
+            fuser -k 5000/tcp || true
+            nohup python3 app.py > /var/jenkins_home/flask.log 2>&1 &
+            sleep 2
+            curl http://localhost:5000
+        '''
+    }
+}
     }
 }
